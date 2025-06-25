@@ -3,15 +3,15 @@ WINDRES = windres
 
 CFLAGS = -mwindows -O2 -lcomctl32 -lshlwapi -ldwmapi -lgdi32 -luxtheme -lshell32
 
-all: siegexSwitcher.exe
+all: r6x-switcher.exe
 
 appicon.res: appicon.rc appicon.ico
 	$(WINDRES) appicon.rc -O coff -o appicon.res
 
-siegexSwitcher.exe: siegexSwitcher.c appicon.res
-	$(CC) siegexSwitcher.c appicon.res -o siegexSwitcher.exe $(CFLAGS)
+r6x-switcher.exe: r6x-switcher.c appicon.res
+	$(CC) r6x-switcher.c appicon.res -o r6x-switcher.exe $(CFLAGS)
 
 clean:
-	del /Q siegexSwitcher.exe appicon.res
+	del /Q r6x-switcher.exe appicon.res
 
 .PHONY: all clean
