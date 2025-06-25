@@ -9,8 +9,8 @@ A utility for quickly changing your Rainbow Six Siege matchmaking server. Includ
 - **Supports all official server regions**
 
 ## Components
-- `siegexSwitcher.exe` / `siegexSwitcher.c`: Modern Windows GUI for server switching (C, Win32 API)
-- `siegexSwitcher.py`: Command-line tool for server switching (Python 3)
+- `r6x-switcher.exe` / `r6x-switcher.c`: Modern Windows GUI for server switching (C, Win32 API)
+- `r6x-switcher.py`: Command-line tool for server switching (Python 3)
 - `Makefile`: Build instructions for the C GUI
 - `appicon.ico`, `appicon.rc`, `appicon.res`: Application icon resources
 
@@ -28,7 +28,7 @@ git clone https://github.com/0xsweat/r6x-switcher
 1. **Requirements:** Python 3.x
 2. **Run:**
    ```powershell
-   python siegexSwitcher.py [options]
+   python r6x-switcher.py [options]
    ```
 3. **Options:**
    - `--servers` : List available servers
@@ -44,7 +44,7 @@ git clone https://github.com/0xsweat/r6x-switcher
      mingw32-make
      ```
 2. **Run:**
-   - Double-click `siegexSwitcher.exe`
+   - Double-click `r6x-switcher.exe`
 
 ## Notes
 - The tool automatically finds all user config files for Rainbow Six Siege X
