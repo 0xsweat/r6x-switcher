@@ -16,6 +16,7 @@ A utility for quickly changing your Rainbow Six Siege matchmaking server. Includ
 
 ## Download
 You can download the latest release binaries from the [Releases](https://github.com/0xsweat/r6x-switcher/releases) page.
+
 Alternatively, you can clone the repository using Git:
 
 ```bash
