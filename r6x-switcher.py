@@ -39,13 +39,20 @@ def configs_path(data_dir: str) -> list[str]:
         if os.path.isdir(f"{data_dir}/{x}") and "GameSettings.ini" in os.listdir(f"{data_dir}/{x}"):
             configs.append(f"{data_dir}/{x}/GameSettings.ini")
     if configs:
-        print("Config(s) found!")
+        print(f"{len(configs)} Config(s) found!")
         for y,x in enumerate(configs):
             with open(x, "r") as f:
-                server = ''.join(
+                server_line = ''.join(
                     [i for i in f.read().split("\n") if i.startswith("DataCenterHint")]
                 )
-            print(f" {y + 1}. {x.split('/')[-2]} : {server.split('=')[1].replace('playfab/', '')}")
+            if "=" in server_line:
+                server_value = server_line.split('=', 1)[1].replace('playfab/', '')
+            else:
+                server_value = "unknown"
+                print("Warning: unknown server in config file: ", x.split('/')[-2], " resetting to default")
+                with open(x, "a") as f:
+                    f.write("DataCenterHint=default\n")
+            print(f" {y + 1}. {x.split('/')[-2]} : {server_value}")
     return configs
 
 def get_servers() -> list[str]:
@@ -83,14 +90,17 @@ if __name__ == "__main__":
     if not configs:
         print("Couldn't find any config files :(")
         exit()
-    print("Please select a server :")
-    for i, server in enumerate(servers):
-        print(f"{i + 1}. {server.replace('playfab/', '')}")
-    choice: int = int(input("Enter the number of your choice: "))
-    if choice < 1 or choice > len(servers):
-        print("Invalid choice. Exiting.")
-        exit()
-    selected_server = servers[choice - 1]
+    if not args.server:
+        print("Please select a server :")
+        for i, server in enumerate(servers):
+            print(f"{i + 1}. {server.replace('playfab/', '')}")
+        choice: int = int(input("Enter the number of your choice: "))
+        if choice < 1 or choice > len(servers):
+            print("Invalid choice. Exiting.")
+            exit()
+        selected_server = servers[choice - 1]
+    else:
+        selected_server = f"playfab/{args.server}" if args.server != "default" else "default"
     for x in configs:
         with open(x, "r") as f:
             lines = f.readlines()
@@ -100,3 +110,4 @@ if __name__ == "__main__":
                     f.write(f"DataCenterHint={selected_server}\n")
                 else:
                     f.write(line)
+        print(f"Set matchmaking server to {selected_server.replace('playfab/', '')} in {x.split('/')[-2]}")
